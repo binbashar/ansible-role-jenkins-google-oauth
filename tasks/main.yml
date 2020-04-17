@@ -1,0 +1,18 @@
+---
+- name: Copy groovy scripts to jenkins groovy directory
+  template:
+    src: "{{ item }}"
+    dest: "{{ jenkins_home }}/init.groovy.d/google-oauth-{{ item.rstrip('.j2') }}"
+    owner: "{{ jenkins_process_user }}"
+    group: "{{ jenkins_process_group }}"
+    mode: 0775
+  with_items: "{{ jenkins_security_init_scripts }}"
+
+- name: Force Jenkins restart
+  service: name=jenkins state=restarted
+
+- name: Remove Jenkins security init scripts after restart
+  file:
+    path: "{{ jenkins_home }}/init.groovy.d/google-oauth-{{ item.rstrip('.j2') }}"
+    state: absent
+  with_items: "{{ jenkins_security_init_scripts }}"

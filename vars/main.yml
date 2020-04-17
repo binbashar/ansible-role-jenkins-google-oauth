@@ -1,0 +1,7 @@
+---
+#
+# Ref: https://github.com/jenkinsci/google-login-plugin/blob/master/README.md
+#
+google_oauth_client_id: ""
+google_oauth_client_secret: ""
+google_oauth_domain: ""

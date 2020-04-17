@@ -1,0 +1,15 @@
+#!groovy
+import jenkins.model.Jenkins
+import hudson.security.SecurityRealm
+import org.jenkinsci.plugins.googlelogin.GoogleOAuth2SecurityRealm
+
+String clientID = '{{ google_oauth_client_id }}'
+String clientSecret = '{{ google_oauth_client_secret }}'
+String domain = '{{ google_oauth_domain }}'
+SecurityRealm googleOAuthRealm = new GoogleOAuth2SecurityRealm(clientID, clientSecret, domain)
+
+// Only set the security realm if it hasn't already been set
+if (!googleOAuthRealm.equals(Jenkins.instance.getSecurityRealm())) {
+    Jenkins.instance.setSecurityRealm(googleOAuthRealm)
+    Jenkins.instance.save()
+}
