@@ -6,3 +6,5 @@ jenkins_process_group: "{{ jenkins_process_user }}"
 jenkins_security_init_scripts:
 # This one enables the authentication strategy
 - security-realm.groovy.j2
+
+jenkins_wait_after_restart: 60

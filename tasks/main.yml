@@ -11,6 +11,10 @@
 - name: Force Jenkins restart
   service: name=jenkins state=restarted
 
+- name: Give some time for Jenkins to restart and apply the init scripts
+  pause:
+    seconds: "{{ jenkins_wait_after_restart }}"
+
 - name: Remove Jenkins security init scripts after restart
   file:
     path: "{{ jenkins_home }}/init.groovy.d/google-oauth-{{ item.rstrip('.j2') }}"
