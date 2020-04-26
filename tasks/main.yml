@@ -12,8 +12,14 @@
   service: name=jenkins state=restarted
 
 - name: Give some time for Jenkins to restart and apply the init scripts
-  pause:
-    seconds: "{{ jenkins_wait_after_restart }}"
+  uri:
+    url: "http://{{ jenkins_host }}:{{ jenkins_port }}/"
+    status_code: [200, 403]
+    timeout: 2
+  register: result
+  until: result.status == 200 or result.status == 403
+  retries: 12
+  delay: 4
 
 - name: Remove Jenkins security init scripts after restart
   file:
