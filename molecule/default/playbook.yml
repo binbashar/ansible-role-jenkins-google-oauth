@@ -19,9 +19,7 @@
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
       jenkins_plugins:
-        - matrix-auth
-        - extended-read-permission
-        - role-strategy
+        - google-oauth-plugin
 
     - role: binbash_inc.ansible_role_jenkins_google_oauth
       jenkins_google_oauth_client_id: "your-google-oauth-client-id"
